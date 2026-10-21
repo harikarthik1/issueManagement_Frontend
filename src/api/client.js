@@ -8,7 +8,8 @@ export class ApiError extends Error {
   }
 }
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+const rawBaseUrl = (import.meta.env.VITE_API_BASE_URL || '').trim();
+const BASE_URL = rawBaseUrl.endsWith('/') ? rawBaseUrl.slice(0, -1) : rawBaseUrl;
 
 export async function apiClient(endpoint, options = {}) {
   const {
